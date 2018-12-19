@@ -212,6 +212,10 @@ var _helmet = __webpack_require__(14);
 
 var _helmet2 = _interopRequireDefault(_helmet);
 
+var _passport = __webpack_require__(19);
+
+var _passport2 = _interopRequireDefault(_passport);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -225,6 +229,7 @@ exports.default = app => {
 
   app.use(_bodyParser2.default.json());
   app.use(_bodyParser2.default.urlencoded({ extended: true }));
+  app.use(_passport2.default.initialize());
 
   if (isDev) {
     app.use((0, _morgan2.default)('dev'));
@@ -313,6 +318,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.signUp = signUp;
+exports.login = login;
 
 var _user = __webpack_require__(9);
 
@@ -327,6 +333,12 @@ async function signUp(req, res) {
   } catch (e) {
     return res.status(500).json(e);
   }
+}
+
+function login(req, res, next) {
+  res.status(200).json(req.user);
+
+  return next();
 }
 
 /***/ }),
@@ -347,6 +359,8 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 var _validator = __webpack_require__(17);
 
 var _validator2 = _interopRequireDefault(_validator);
+
+var _bcryptNodejs = __webpack_require__(18);
 
 var _user = __webpack_require__(2);
 
@@ -389,6 +403,23 @@ const UserSchema = new _mongoose.Schema({
   }
 });
 
+UserSchema.pre('save', function (next) {
+  if (this.isModified('password')) {
+    this.password = this._hashPassword(this.password);
+  }
+
+  return next();
+});
+
+UserSchema.methods = {
+  _hashPassword(password) {
+    return (0, _bcryptNodejs.hashSync)(password);
+  },
+  authenticateUser(password) {
+    return (0, _bcryptNodejs.compareSync)(password, this.password);
+  }
+};
+
 exports.default = _mongoose2.default.model('User', UserSchema);
 
 /***/ }),
@@ -408,6 +439,8 @@ var _expressValidation = __webpack_require__(13);
 
 var _expressValidation2 = _interopRequireDefault(_expressValidation);
 
+var _auth = __webpack_require__(20);
+
 var _user = __webpack_require__(8);
 
 var userController = _interopRequireWildcard(_user);
@@ -423,6 +456,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const routes = new _express.Router();
 
 routes.post('/signup', (0, _expressValidation2.default)(_user3.default.signup), userController.signUp);
+routes.post('/login', _auth.authLocal, userController.login);
 
 exports.default = routes;
 
@@ -467,6 +501,73 @@ module.exports = require("morgan");
 /***/ (function(module, exports) {
 
 module.exports = require("validator");
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports = require("bcrypt-nodejs");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport");
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.authLocal = undefined;
+
+var _passport = __webpack_require__(19);
+
+var _passport2 = _interopRequireDefault(_passport);
+
+var _passportLocal = __webpack_require__(21);
+
+var _passportLocal2 = _interopRequireDefault(_passportLocal);
+
+var _user = __webpack_require__(9);
+
+var _user2 = _interopRequireDefault(_user);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const localOpts = {
+  usernameField: 'email'
+};
+
+const localStrategy = new _passportLocal2.default(localOpts, async (email, password, done) => {
+  try {
+    const user = await _user2.default.findOne({ email });
+    if (!user) {
+      return done(null, false);
+    } else if (!user.authenticateUser(password)) {
+      return done(null, false);
+    }
+
+    return done(null, user);
+  } catch (e) {
+    return done(e, false);
+  }
+});
+
+_passport2.default.use(localStrategy);
+
+const authLocal = exports.authLocal = _passport2.default.authenticate('local', { session: false });
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+module.exports = require("passport-local");
 
 /***/ })
 /******/ ]);
