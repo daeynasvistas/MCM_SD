@@ -19,7 +19,17 @@ Simple API for authentication in nodeJs
 
 Config Branch - OK
 
- ### Part 2, Setup (Branch API_p_02)
+ ### Part 2, Setup (Branch Models)
  #### To add
  - Create the user model, controller and routes
  - Add joi for validation with express-validation
+
+### Part 3, Setup (Branch Security)
+#### To add
+ - Create the user model, controller and routes
+ - Signup user
+ - Add joi for validation with express-validation
+ - Add rimrafCrypt the user password
+ - Create the localStrategy with passport
+ - Log a user
+

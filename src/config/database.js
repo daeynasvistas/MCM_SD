@@ -9,6 +9,7 @@ mongoose.Promise = global.Promise;
 // Connect the db with the url provide
 try {
   mongoose.connect(constants.MONGO_URL);
+  mongoose.set('useCreateIndex', true);
 } catch (err) {
   mongoose.createConnection(constants.MONGO_URL);
 }
