@@ -13,3 +13,8 @@ Simple API for authentication in nodeJs
  - eslink
  - babel
  - webpack 2 
+ - Add mongoose, body-parser, morgan, compression, helmet
+ - Setup config folder
+ - Setup constants
+
+Config Branch - OK
