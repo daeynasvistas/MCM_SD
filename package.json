@@ -35,6 +35,8 @@
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.4.0",
+    "eslint": "^5.10.0",
+    "eslint-config-equimper": "^2.2.2",
     "morgan": "^1.9.1",
     "webpack": "^2.5.1",
     "webpack-node-externals": "^1.6.0"
