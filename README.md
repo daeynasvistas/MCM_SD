@@ -13,3 +13,13 @@ Simple API for authentication in nodeJs
  - eslink
  - babel
  - webpack 2 
+ - Add mongoose, body-parser, morgan, compression, helmet
+ - Setup config folder
+ - Setup constants
+
+Config Branch - OK
+
+ ### Part 2, Setup (Branch API_p_02)
+ #### To add
+ - Create the user model, controller and routes
+ - Add joi for validation with express-validation

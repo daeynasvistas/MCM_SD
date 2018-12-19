@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 
 import constants from './constants';
@@ -13,8 +14,8 @@ try {
 }
 
 mongoose.connection
-  .once('open', () => console.log(`  MongoDb Running OK
-  -------------------------------  `))
+  .once('open', () => console.log(`      MongoDb Running OK
+      ---------------------------------  `))
   .on('error', e => {
     throw e;
   });
