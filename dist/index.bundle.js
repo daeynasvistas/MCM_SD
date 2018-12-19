@@ -175,6 +175,7 @@ _mongoose2.default.Promise = global.Promise;
 // Connect the db with the url provide
 try {
   _mongoose2.default.connect(_constants2.default.MONGO_URL);
+  _mongoose2.default.set('useCreateIndex', true);
 } catch (err) {
   _mongoose2.default.createConnection(_constants2.default.MONGO_URL);
 }
