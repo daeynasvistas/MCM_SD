@@ -1,0 +1,26 @@
+{
+  "name": "mcm_sd",
+  "version": "1.0.0",
+  "description": "API MCM - Sistemas Distribuidos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daeynasvistas/MCM_SD.git"
+  },
+  "keywords": [
+    "nodejs",
+    "api",
+    "authentication",
+    "backoffice",
+    "android"
+  ],
+  "author": "Daniel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daeynasvistas/MCM_SD/issues"
+  },
+  "homepage": "https://github.com/daeynasvistas/MCM_SD#readme"
+}
