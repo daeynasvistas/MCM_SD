@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import validator from 'validator';
+import { passwordReg } from './user.validations';
 
 const UserSchema = new Schema(
   {
@@ -36,7 +37,7 @@ const UserSchema = new Schema(
         },
         message: '{VALUE} is not a valid password!',
       },
-    }
+    },
   }
 );
 

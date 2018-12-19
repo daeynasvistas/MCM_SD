@@ -13,8 +13,8 @@ try {
 }
 
 mongoose.connection
-  .once('open', () => console.log(`  MongoDb Running OK
-  -------------------------------  `))
+  .once('open', () => console.log(`      MongoDb Running OK
+      ---------------------------------  `))
   .on('error', e => {
     throw e;
   });
