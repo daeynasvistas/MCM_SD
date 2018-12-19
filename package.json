@@ -4,12 +4,11 @@
   "description": "API MCM - Sistemas Distribuidos",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:build": "webpack -w",
+    "dev": "cross-env NODE_ENV=development nodemon dist/index.bundle.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/daeynasvistas/MCM_SD.git"
-  },
+  "repository": "git+https://github.com/daeynasvistas/MCM_SD.git",
   "keywords": [
     "nodejs",
     "api",
@@ -18,9 +17,21 @@
     "android"
   ],
   "author": "Daniel",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/daeynasvistas/MCM_SD/issues"
   },
-  "homepage": "https://github.com/daeynasvistas/MCM_SD#readme"
+  "homepage": "https://github.com/daeynasvistas/MCM_SD#readme",
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "webpack": "^2.5.1",
+    "webpack-node-externals": "^1.6.0"
+  }
 }
