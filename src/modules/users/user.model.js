@@ -9,8 +9,6 @@ import constants from '../../config/constants';
 const UserSchema = new Schema({
   email: {
     type: String,
-    unique: true,
-    required: [true, 'Email is required!'],
     trim: true,
     validate: {
       validator(email) {
@@ -21,12 +19,10 @@ const UserSchema = new Schema({
   },
   firstName: {
     type: String,
-    required: [true, 'FirstName is required!'],
     trim: true,
   },
   lastName: {
     type: String,
-    required: [true, 'LastName is required!'],
     trim: true,
   },
   userName: {
