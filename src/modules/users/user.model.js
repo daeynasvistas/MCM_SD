@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 import validator from 'validator';
-
 import { hashSync, compareSync } from 'bcrypt-nodejs';
 
 import { passwordReg } from './user.validations';
