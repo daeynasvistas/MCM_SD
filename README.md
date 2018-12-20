@@ -42,3 +42,8 @@ Config Branch - OK
 - Create the post model
 - Add the user id as the author
 
+
+### Part 5, Setup (Branch User)
+#### To add
+- Populate User
+- User toAuthJSON vs toJSON
