@@ -32,4 +32,5 @@ Config Branch - OK
  - Add rimrafCrypt the user password
  - Create the localStrategy with passport
  - Log a user
-
+ - Create a secret password for the jwt
+ - Add passport-jwt strategy
