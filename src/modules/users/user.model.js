@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 import validator from 'validator';
 import { hashSync, compareSync } from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
+import uniqueValidator from 'mongoose-unique-validator';
 
 import { passwordReg } from './user.validations';
 import constants from '../../config/constants';
@@ -49,6 +50,10 @@ const UserSchema = new Schema({
   },
 }, { timestamps: true });
 
+UserSchema.plugin(uniqueValidator, {
+  message: '{VALUE} already taken!',
+});
+
 UserSchema.pre('save', function (next) {
   if (this.isModified('password')) {
     this.password = this._hashPassword(this.password);
@@ -76,7 +81,6 @@ UserSchema.methods = {
     return {
       _id: this._id,
       userName: this.userName,
-      email: this.email,
       token: `JWT ${this.createToken()}`,
     };
   },
