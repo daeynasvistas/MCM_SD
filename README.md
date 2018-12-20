@@ -24,6 +24,7 @@ Config Branch - OK
  - Create the user model, controller and routes
  - Add joi for validation with express-validation
 
+
 ### Part 3, Setup (Branch Security)
 #### To add
  - Create the user model, controller and routes
@@ -46,4 +47,4 @@ Config Branch - OK
 ### Part 5, Setup (Branch User)
 #### To add
 - Populate User
-- User toAuthJSON vs toJSON
+- User toAuthJSON
