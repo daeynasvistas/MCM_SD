@@ -29,8 +29,16 @@ Config Branch - OK
  - Create the user model, controller and routes
  - Signup user
  - Add joi for validation with express-validation
- - Add rimrafCrypt the user password
+ - Add rimraf 
+ - Crypt the user password
  - Create the localStrategy with passport
  - Log a user
  - Create a secret password for the jwt
  - Add passport-jwt strategy
+
+
+### Part 4, Setup (Branch Posts)
+#### To add
+- Create the post model
+- Add the user id as the author
+
