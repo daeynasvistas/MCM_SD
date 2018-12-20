@@ -548,7 +548,6 @@ const localStrategy = new _passportLocal2.default(localOpts, async (email, passw
 // Jwt strategy
 const jwtOpts = {
   jwtFromRequest: _passportJwt.ExtractJwt.fromAuthHeaderWithScheme('authorization'),
-  //jwtFromRequest: ExtractJwt.fromAuthHeader('authorization'),
   secretOrKey: _constants2.default.JWT_SECRET
 };
 
