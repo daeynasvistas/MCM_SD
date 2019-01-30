@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist",
-    "dev:build": "npm run clean && webpack -w",
+    "build": "npm run clean && webpack -w",
     "dev": "cross-env NODE_ENV=development nodemon dist/index.bundle.js"
   },
   "repository": "git+https://github.com/daeynasvistas/MCM_SD.git",

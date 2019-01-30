@@ -1,17 +1,17 @@
 import { Router } from 'express';
 import validate from 'express-validation';
 
-import * as postController from './post.controllers';
+import * as bancoController from './banco.controllers';
 import { authJwt } from '../../services/auth.services';
-import postValidation from './post.validations';
+import bancoValidation from './banco.validations';
 
 const routes = new Router();
 
 routes.post(
   '/',
   authJwt,
-  validate(postValidation.createPost),
-  postController.createPost,
+  validate(bancoValidation.createBanco),
+  bancoController.createBanco,
 );
 
 export default routes;

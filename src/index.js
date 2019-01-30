@@ -26,6 +26,7 @@ app.listen(constants.PORT, err => {
       Runnning on ${process.env.NODE_ENV}
       ---------------------------------
       MCM 2018/19 - Sistemas Distribuidos
+      http://localhost:3000
       `);
   }
 });
