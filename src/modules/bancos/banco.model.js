@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import slug from 'slug';
 import uniqueValidator from 'mongoose-unique-validator';
 
 /*
@@ -85,16 +84,5 @@ const BancoSchema = new Schema({
 
 }, { timestamps: true });
 
-
-
-
-BancoSchema.statics = {
-  createBanco(args, user) {
-    return this.create({
-      ...args,
-      user,
-    });
-  },
-};
 
 export default mongoose.model('Banco', BancoSchema);
