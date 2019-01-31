@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import uniqueValidator from 'mongoose-unique-validator';
 
+
 /*
 {
     "Denominacao_da_Instituicao": "321 CRÉDITO - INSTITUIÇÃO FINANCEIRA DE CRÉDITO, SA",
@@ -22,67 +23,59 @@ import uniqueValidator from 'mongoose-unique-validator';
     "id": 1
   }
 */
-const BancoSchema = new Schema({
-  Denominacao_da_Instituicao: {
-  type: String,
-  trim: true,
-  required: true
-},
-  Tipo_de_Establecimento: {
-  type: String,
-  trim: true,
-},
-  Cod_AF: {
-  type: Number,
-  trim: true
-},
-  //user: {
-  //  type: Schema.Types.ObjectId,
-  //  ref: 'User',
-  //},
-  Denominacao_do_Establecimento: {
-  type: String,
-  trim: true,
-  required: true
-},
-  Pais_de_Estabelecimento: {
-  type: String,
-  trim: true,
-},
-  Cod_Agencia: {
-  type: Number,
-  default:0
-},
-  Denominacao_da_Agencia: {
-  type: String,
-  trim: true,
-},
-  Morada: {
-  type: String,
-  trim: true,
-},
-  Localidade: {
-  type: String,
-  trim: true,
-},
-  Cod_Postal: {
-  type: String,
-  trim: true,
-},
-  Concelho: {
-  type: String,
-  trim: true,
-},
-  Distrito: {
-  type: String,
-  trim: true,
-},
-  Pais: {
-  type: String,
-  trim: true,
-},
+const BancoSchema = new Schema(
+  {
+    _id: {
+      $oid: {
+        type: 'ObjectId'
+      }
+    },
+    Denominacao_da_Instituicao: {
+      type: 'String'
+    },
+    Tipo_de_Establecimento: {
+      type: 'String'
+    },
+    Cod_AF: {
+      type: 'Number'
+    },
+    Denominacao_do_Establecimento: {
+      type: 'String'
+    },
+    Pais_de_Estabelecimento: {
+      type: 'String'
+    },
+    Cod_Agencia: {
+      type: 'Number'
+    },
+    Denominacao_da_Agencia: {
+      type: 'String'
+    },
+    Sucursal: {
+      Balcao_sede: {
+        type: 'String'
+      }
+    },
+    Morada: {
+      type: 'String'
+    },
+    Localidade: {
+      type: 'String'
+    },
+    Cod_Postal: {
+      type: 'String'
+    },
+    Concelho: {
+      type: 'String'
+    },
+    Distrito: {
+      type: 'String'
+    },
+    Pais: {
+      type: 'String'
+    }
+  }
 
-}, { timestamps: true });
-
+  );
 
 export default mongoose.model('Banco', BancoSchema);

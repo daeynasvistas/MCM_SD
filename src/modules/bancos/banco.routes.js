@@ -14,4 +14,9 @@ routes.post(
   bancoController.createBanco,
 );
 
+//routes.get('/:id', authJwt, bancoController.getBancoById);
+
+routes.get('/about', authJwt, bancoController.getBancosListFilter);
+routes.get('/', authJwt, bancoController.getBancosList);
+
 export default routes;

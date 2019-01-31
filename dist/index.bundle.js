@@ -134,7 +134,7 @@ var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _validator = __webpack_require__(30);
+var _validator = __webpack_require__(29);
 
 var _validator2 = _interopRequireDefault(_validator);
 
@@ -539,17 +539,82 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createBanco = createBanco;
+exports.getBancoById = getBancoById;
+exports.getBancosList = getBancosList;
+exports.getBancosListFilter = getBancosListFilter;
 
 var _banco = __webpack_require__(15);
 
 var _banco2 = _interopRequireDefault(_banco);
 
+var _util = __webpack_require__(30);
+
+var util = _interopRequireWildcard(_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// or directly
 
 async function createBanco(req, res) {
   try {
     const banco = await _banco2.default.createBanco(req.body, req.user._id);
     return res.status(201).json(banco);
+  } catch (e) {
+    return res.status(400).json(e);
+  }
+} // has no default export
+async function getBancoById(req, res) {
+  try {
+    const banco = await _banco2.default.findById(req.params.id);
+    console.log(req.params.id);
+    return res.status(201).json(banco);
+  } catch (e) {
+    return res.status(400).json(e);
+  }
+}
+
+// com limites
+/*
+export async function getBancosList(req, res) {
+//  const limit = parseInt(req.query.limit, 0);
+//  const skip = parseInt(req.query.skip, 0);
+  try {
+    const bancos = await Banco.list();
+    return res.status(201).json(bancos);
+  } catch (e) {
+    return res.status(400).json(e);
+  }
+}
+*/
+
+// receber todos os bancos
+async function getBancosList(req, res) {
+  try {
+    const bancos = await _banco2.default.find();
+    return res.status(201).json(bancos);
+  } catch (e) {
+    return res.status(400).json(e);
+  }
+}
+
+// com filtro query
+async function getBancosListFilter(req, res) {
+  console.log(req.query.Cod_AF);
+  console.log(req.query.Cod_Agencia);
+
+  try {
+    var query = _banco2.default.find({ "Cod_AF": req.query.Cod_AF,
+      "Cod_Agencia": req.query.Cod_Agencia });
+
+    _banco2.default.find(query)
+    //.populate('user')  -- mais filtro
+    .exec(function (err, banco) {
+      // Catch        if (err) return handleError(err);
+      // console.log('O Banco é %s', banco);
+      return res.status(201).json(banco);
+    });
   } catch (e) {
     return res.status(400).json(e);
   }
@@ -569,10 +634,6 @@ Object.defineProperty(exports, "__esModule", {
 var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
-
-var _slug = __webpack_require__(29);
-
-var _slug2 = _interopRequireDefault(_slug);
 
 var _mongooseUniqueValidator = __webpack_require__(8);
 
@@ -602,74 +663,56 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   }
 */
 const BancoSchema = new _mongoose.Schema({
+  _id: {
+    $oid: {
+      type: 'ObjectId'
+    }
+  },
   Denominacao_da_Instituicao: {
-    type: String,
-    trim: true,
-    required: true
+    type: 'String'
   },
   Tipo_de_Establecimento: {
-    type: String,
-    trim: true
+    type: 'String'
   },
   Cod_AF: {
-    type: Number,
-    trim: true
+    type: 'Number'
   },
-  //user: {
-  //  type: Schema.Types.ObjectId,
-  //  ref: 'User',
-  //},
   Denominacao_do_Establecimento: {
-    type: String,
-    trim: true,
-    required: true
+    type: 'String'
   },
   Pais_de_Estabelecimento: {
-    type: String,
-    trim: true
+    type: 'String'
   },
   Cod_Agencia: {
-    type: Number,
-    default: 0
+    type: 'Number'
   },
   Denominacao_da_Agencia: {
-    type: String,
-    trim: true
+    type: 'String'
+  },
+  Sucursal: {
+    Balcao_sede: {
+      type: 'String'
+    }
   },
   Morada: {
-    type: String,
-    trim: true
+    type: 'String'
   },
   Localidade: {
-    type: String,
-    trim: true
+    type: 'String'
   },
   Cod_Postal: {
-    type: String,
-    trim: true
+    type: 'String'
   },
   Concelho: {
-    type: String,
-    trim: true
+    type: 'String'
   },
   Distrito: {
-    type: String,
-    trim: true
+    type: 'String'
   },
   Pais: {
-    type: String,
-    trim: true
+    type: 'String'
   }
-
-}, { timestamps: true });
-
-BancoSchema.statics = {
-  createBanco(args, user) {
-    return this.create(Object.assign({}, args, {
-      user
-    }));
-  }
-};
+});
 
 exports.default = _mongoose2.default.model('Banco', BancoSchema);
 
@@ -707,6 +750,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const routes = new _express.Router();
 
 routes.post('/', _auth.authJwt, (0, _expressValidation2.default)(_banco3.default.createBanco), bancoController.createBanco);
+
+//routes.get('/:id', authJwt, bancoController.getBancoById);
+
+routes.get('/about', _auth.authJwt, bancoController.getBancosListFilter);
+routes.get('/', _auth.authJwt, bancoController.getBancosList);
 
 exports.default = routes;
 
@@ -870,13 +918,13 @@ module.exports = require("passport-local");
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = require("slug");
+module.exports = require("validator");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = require("validator");
+module.exports = require("util");
 
 /***/ })
 /******/ ]);
